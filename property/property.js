@@ -1,9 +1,12 @@
+import fs from 'fs';
 import { Selector } from 'testcafe'; // first import testcafe selectors
 import { filterSelectorByAttribute } from '../helpers/selectors';
 
-fixture `property.property`// declare the fixture
-    .page `http://localhost:3000/fire/properties/#/property/c08f47df-1fc0-e711-9be3-e4a471db8629/property`;  // specify the start page
+fixture`property.property`// declare the fixture
+.page`${config.host}/property/c08f47df-1fc0-e711-9be3-e4a471db8629/property`;  // specify the start page
 
+const infoTypeSelectButton = filterSelectorByAttribute('eso-single-select', 'with-address-from', 'vm.info.typeId');
+const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 const otherTab = filterSelectorByAttribute('li','ui-sref','property.contacts');
 const propertyTab = filterSelectorByAttribute('li','ui-sref','property.property');
 
@@ -56,6 +59,8 @@ const propertyTab = filterSelectorByAttribute('li','ui-sref','property.property'
 //         .click(propertyTab)        
 //         .expect(Selector('eso-date').innerText).contains(infoStartDateExpectedValue);
 // });
+
+
 
 
 
