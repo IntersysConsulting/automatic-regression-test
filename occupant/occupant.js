@@ -1,11 +1,15 @@
 import { Selector } from 'testcafe'; // first import testcafe selectors
 import { filterSelectorByAttribute } from '../helpers/selectors';
+import { singleSelect } from '../helpers/singleSelect';
 
 fixture `occupant.occupant`// declare the fixture
     .page `http://localhost:3000/fire/properties/#/occupant/7fa43d18-20c0-e711-9be3-e4a471db8629/occupant`;  // specify the start page
 
 const otherTab = filterSelectorByAttribute('li','ui-sref','occupant.contacts');
 const occupantTab = filterSelectorByAttribute('li','ui-sref','occupant.occupant');
+
+
+//INFO
 
 //info.occupantName
 const occupantNameExpectedValue = 'Occupant';
@@ -26,17 +30,43 @@ test('info.occupantName', async t => {
 });
 
 
-//info.statusId vm.info.statusId
-const statusIdExpectedValue = 'Vacant';
-const statusIdSelectButton  = filterSelectorByAttribute('eso-single-select','with-address-from','vm.info.statusId');
-const statusIdSelectOption  = Selector('.label-container').withText(statusIdExpectedValue);
+//vm.info.statusId
+singleSelect('Vacant', 'vm.info.statusId', occupantTab, otherTab);
 
-test('info.type', async t => {
+//vm.info.typeId
+singleSelect('Assembly', 'vm.info.typeId', occupantTab, otherTab);
+
+//vm.info.occupantUseId
+singleSelect('Aircraft runway', 'vm.info.occupantUseId', occupantTab, otherTab);
+
+//vm.info.mixedUseId
+singleSelect('Medical Use', 'vm.info.mixedUseId', occupantTab, otherTab);
+
+//vm.info.securityTypeId
+singleSelect('Private', 'vm.info.securityTypeId', occupantTab, otherTab);
+
+
+//info.contentValue vm.info.contentValue
+const contentValueExpectedValue = '123456789';
+const contentValueSelectedField = filterSelectorByAttribute('eso-number-input','with-address-from','vm.info.contentValue');
+
+test('info.typeId', async t => {
     await t
-        .click(statusIdSelectButton)
-        .click(statusIdSelectOption)
-        .expect(Selector('.display-value').innerText).contains(statusIdExpectedValue)
+        .typeText(contentValueSelectedField,contentValueExpectedValue)
+        .typeText(contentValueSelectedField,"12345678910111213")
+        .typeText(contentValueSelectedField,"abcdefhgi")
+        .expect(contentValueSelectedField.innerText).contains(contentValueExpectedValue)
         .click(otherTab)
         .click(occupantTab)
-        .expect(Selector('.display-value').innerText).contains(statusIdExpectedValue);
+        .expect(contentValueSelectedField.innerText).contains(contentValueExpectedValue);
 });
+
+//CODE CERT & PERM
+
+//OCCUPANCY
+
+//BUSINESS
+
+//MONITORING
+
+//NOTES
