@@ -4,18 +4,58 @@ import { filterSelectorByAttribute } from '../helpers/selectors';
 fixture `property.property`// declare the fixture
     .page `http://localhost:3000/fire/properties/#/property/c08f47df-1fc0-e711-9be3-e4a471db8629/property`;  // specify the start page
 
-const infoTypeSelectButton = filterSelectorByAttribute('eso-single-select','with-address-from','vm.info.typeId');
+const otherTab = filterSelectorByAttribute('li','ui-sref','property.contacts');
+const propertyTab = filterSelectorByAttribute('li','ui-sref','property.property');
 
-//then create a test and place your code there
-test('info.type', async t => {
-    await t
-        .click(infoTypeSelectButton)
-        .click('.label-content')
+//info.type
+// const infoTypeExpectedValue = 'Business';
+// const infoTypeSelectButton  = filterSelectorByAttribute('eso-single-select','with-address-from','vm.info.typeId');
+// const infoTypeSelectOption  = Selector('.label-container').withText(infoTypeExpectedValue);
 
-        // Use the assertion to check if the actual header text is equal to the expected one
-        .expect(Selector('.display-value').innerText).eql('Assembly');
-});
+// test('info.type', async t => {
+//     await t
+//         .click(infoTypeSelectButton)
+//         .click(infoTypeSelectOption)
 
+//         // Use the assertion to check if the actual header text is equal to the expected one
+//         .expect(Selector('.display-value').innerText).eql(infoTypeExpectedValue)
+//         .click(otherTab)
+//         .click(propertyTab)
+//         .expect(Selector('.display-value').innerText).eql(infoTypeExpectedValue);
+// });
+
+
+// //info.status
+// const infoStatusExpectedValue = 'Undetermined';
+// const infoStatusSelectButton = filterSelectorByAttribute('eso-single-select','with-address-from','vm.info.statusId');
+// const infoStatusSelectOption = Selector('.label-container').withText(infoStatusExpectedValue);
+
+// test('info.status', async t => {
+//     await t
+//         .click(infoStatusSelectButton)
+//         .click(infoStatusSelectOption)
+
+//         // Use the assertion to check if the actual header text is equal to the expected one
+//         .expect(Selector('.display-value').innerText).eql(infoStatusExpectedValue);
+// });
+
+
+//info.startDate
+// const infoStartDateExpectedValue = '6';
+// const infoStartDateSelectButton = filterSelectorByAttribute('eso-date','with-address-from','vm.info.startDate');
+// const infoStartDateSelectOption = Selector('.date-item').withText(infoStartDateExpectedValue);
+// const infoStartDateOk = Selector('.btn').withText("OK");
+
+// test('info.status', async t => {
+//     await t
+//         .click(infoStartDateSelectButton)
+//         .click(infoStartDateSelectOption)
+//         .click(infoStartDateOk)
+//         .expect(Selector('eso-date').innerText).contains(infoStartDateExpectedValue)     
+//         .click(otherTab)
+//         .click(propertyTab)        
+//         .expect(Selector('eso-date').innerText).contains(infoStartDateExpectedValue);
+// });
 
 
 
