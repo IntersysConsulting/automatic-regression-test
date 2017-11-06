@@ -1,9 +1,12 @@
+import fs from 'fs';
 import { Selector } from 'testcafe'; // first import testcafe selectors
 import { filterSelectorByAttribute } from '../helpers/selectors';
 import { singleSelect } from '../helpers/singleSelect';
+import { timeSelect } from '../helpers/timeSelect';
+const json = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
 fixture `occupant.occupant`// declare the fixture
-    .page `http://localhost:3000/fire/properties/#/occupant/7fa43d18-20c0-e711-9be3-e4a471db8629/occupant`;  // specify the start page
+    .page`${json.host}/occupant/7fa43d18-20c0-e711-9be3-e4a471db8629/occupant`;  // specify the start page
 
 const otherTab = filterSelectorByAttribute('li','ui-sref','occupant.contacts');
 const occupantTab = filterSelectorByAttribute('li','ui-sref','occupant.occupant');
@@ -66,6 +69,8 @@ test('info.typeId', async t => {
 //OCCUPANCY
 
 //BUSINESS
+
+timeSelect('100000', '10:00:00', 'vm.businessOperation.hoursOfOperationStart', buildingTab, otherTab);
 
 //MONITORING
 
