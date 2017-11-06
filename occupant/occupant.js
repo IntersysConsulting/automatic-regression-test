@@ -2,11 +2,13 @@ import fs from 'fs';
 import { Selector } from 'testcafe'; // first import testcafe selectors
 import { filterSelectorByAttribute } from '../helpers/selectors';
 import { singleSelect } from '../helpers/singleSelect';
+import { numberInput } from '../helpers/numberInput';
 import { timeSelect } from '../helpers/timeSelect';
+
 const json = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
-fixture `occupant.occupant`// declare the fixture
-    .page`${json.host}/occupant/7fa43d18-20c0-e711-9be3-e4a471db8629/occupant`;  // specify the start page
+fixture`occupant.occupant`// declare the fixture
+  .page`${json.host}/occupant/7fa43d18-20c0-e711-9be3-e4a471db8629/occupant`; 
 
 const otherTab = filterSelectorByAttribute('li','ui-sref','occupant.contacts');
 const occupantTab = filterSelectorByAttribute('li','ui-sref','occupant.occupant');
@@ -32,41 +34,27 @@ test('info.occupantName', async t => {
         .expect(Selector('.display-value').innerText).contains(occupantNameExpectedValue);  
 });
 
-
-//vm.info.statusId
 singleSelect('Vacant', 'vm.info.statusId', occupantTab, otherTab);
-
-//vm.info.typeId
 singleSelect('Assembly', 'vm.info.typeId', occupantTab, otherTab);
-
-//vm.info.occupantUseId
 singleSelect('Aircraft runway', 'vm.info.occupantUseId', occupantTab, otherTab);
-
-//vm.info.mixedUseId
 singleSelect('Medical Use', 'vm.info.mixedUseId', occupantTab, otherTab);
-
-//vm.info.securityTypeId
 singleSelect('Private', 'vm.info.securityTypeId', occupantTab, otherTab);
 
 
-//info.contentValue vm.info.contentValue
-const contentValueExpectedValue = '123456789';
-const contentValueSelectedField = filterSelectorByAttribute('eso-number-input','with-address-from','vm.info.contentValue');
+numberInput('123456789', 'vm.info.contentValue', 9,occupantTab, otherTab);
 
-test('info.typeId', async t => {
-    await t
-        .typeText(contentValueSelectedField,contentValueExpectedValue)
-        .typeText(contentValueSelectedField,"12345678910111213")
-        .typeText(contentValueSelectedField,"abcdefhgi")
-        .expect(contentValueSelectedField.innerText).contains(contentValueExpectedValue)
-        .click(otherTab)
-        .click(occupantTab)
-        .expect(contentValueSelectedField.innerText).contains(contentValueExpectedValue);
-});
 
 //CODE CERT & PERM
 
-//OCCUPANCY
+singleSelect('Mercantile: Group M', 'vm.permits.nfpaUseCodeId', occupantTab, otherTab);
+singleSelect('Educational', 'vm.permits.nfpaOccCodeId', occupantTab, otherTab);
+//singleSelect('Private', 'vm.permits.stateOccupancyCodeId', occupantTab, otherTab);
+//singleSelect('Private', 'vm.permits.localOccupancyClassId', occupantTab, otherTab);
+
+
+//OCCUPANCY 
+singleSelect('Institutional (Group I)', 'vm.occupancy.occupancyClassificationId', occupantTab, otherTab);
+singleSelect('Agricultural Services', 'vm.occupancy.standardIndustrialClassificationId', occupantTab, otherTab);
 
 //BUSINESS
 
