@@ -1,5 +1,5 @@
 {
-  "host": "http://localhost/fire/properties/#",
+  "host": "http://192.168.15.38:3000/fire/properties/#",
   "propertyUID" : "0608a3fd-3cc3-e711-9bf7-e4a471db8629",
   "buildingUID" : "d2406b04-3dc3-e711-9bf7-e4a471db8629",
   "occupantUID" : "d3406b04-3dc3-e711-9bf7-e4a471db8629"
