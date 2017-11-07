@@ -1,10 +1,14 @@
+import fs from 'fs';
 import { Selector } from 'testcafe'; // first import testcafe selectors
 import { filterSelectorByAttribute } from '../helpers/selectors';
 import { singleSelect } from '../helpers/singleSelect';
 import { numberInput } from '../helpers/numberInput';
+import { timeSelect } from '../helpers/timeSelect';
 
-fixture `occupant.occupant`// declare the fixture
-    .page `http://localhost/fire/properties/#/occupant/d3406b04-3dc3-e711-9bf7-e4a471db8629/occupant`;  // specify the start page
+const json = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+
+fixture`occupant.occupant`// declare the fixture
+  .page`${json.host}/occupant/7fa43d18-20c0-e711-9be3-e4a471db8629/occupant`; 
 
 const otherTab = filterSelectorByAttribute('li','ui-sref','occupant.contacts');
 const occupantTab = filterSelectorByAttribute('li','ui-sref','occupant.occupant');
@@ -53,6 +57,8 @@ singleSelect('Institutional (Group I)', 'vm.occupancy.occupancyClassificationId'
 singleSelect('Agricultural Services', 'vm.occupancy.standardIndustrialClassificationId', occupantTab, otherTab);
 
 //BUSINESS
+
+timeSelect('100000', '10:00:00', 'vm.businessOperation.hoursOfOperationStart', buildingTab, otherTab);
 
 //MONITORING
 
