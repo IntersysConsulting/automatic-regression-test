@@ -3,7 +3,10 @@ import { filterSelectorByAttribute } from '../helpers/selectors';
 
 exports.numberInput = function(expectedValue, esoField, maxNumber, currentTab, otherTab){
     const selectedField = filterSelectorByAttribute('eso-number-input','with-address-from',esoField);
-    const child = selectedField.child(2);
+    const child = selectedField.child((node, idx, originNode) => {
+        if (node.hasAttribute('type')) return true;
+        else return false;
+    });
     const testName = esoField.split('.').splice(1,2).join('.');
     const maxValue = Array(maxNumber + 2).join('9'); 
 
