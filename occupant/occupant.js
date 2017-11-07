@@ -4,6 +4,7 @@ import { filterSelectorByAttribute } from '../helpers/selectors';
 import { singleSelect } from '../helpers/singleSelect';
 import { numberInput } from '../helpers/numberInput';
 import { timeSelect } from '../helpers/timeSelect';
+import { dateSelect } from '../helpers/dateSelect';
 
 const json = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
@@ -48,6 +49,7 @@ numberInput('123456789', 'vm.info.contentValue', 9,occupantTab, otherTab);
 
 singleSelect('Mercantile: Group M', 'vm.permits.nfpaUseCodeId', occupantTab, otherTab);
 singleSelect('Educational', 'vm.permits.nfpaOccCodeId', occupantTab, otherTab);
+dateSelect('10112017', '10/11/2017', 'OCCUPANT_CERTIFICATEOFOCCUPANCYDATEOFISSUE', buildingTab, otherTab);
 //singleSelect('Private', 'vm.permits.stateOccupancyCodeId', occupantTab, otherTab);
 //singleSelect('Private', 'vm.permits.localOccupancyClassId', occupantTab, otherTab);
 
